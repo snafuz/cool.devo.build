@@ -1,0 +1,685 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Deploy Cassandra on Oracle Cloud (OCI) Linux VM - Oracle Dev.O Tutorials</title>
+<meta name="description" content="Set up your environment to run Cassandra in Oracle Cloud Infrastructure.">
+
+
+  <meta name="author" content="Olivier Francois Xavier Perard">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Oracle Dev.O Tutorials">
+<meta property="og:title" content="Deploy Cassandra on Oracle Cloud (OCI) Linux VM">
+<meta property="og:url" content="https://cool.devo.build//collections/tutorials/deploy-cassandra-on-oci">
+
+
+  <meta property="og:description" content="Set up your environment to run Cassandra in Oracle Cloud Infrastructure.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://cool.devo.build//collections/tutorials/deploy-cassandra-on-oci">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://cool.devo.build//"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Oracle Dev.O Tutorials Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<link rel="icon" href="https://www.oracle.com/asset/web/favicons/favicon-32.png" sizes="32x32">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead oracle-header oracle-headerv1 oracle-headeradj oracle-headerdev">
+  <div class="masthead__inner-wrap oracle-headerw1">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <div class="oracle-headers1 site-logo">
+          <a class="oracle-logo" href="https://developer.oracle.com/"><span>Oracle</span></a>
+        </div>
+        <div class="u18-title site-title">
+          <a href="/">
+            Oracle Dev.O Tutorials
+            
+          </a>
+        </div>
+
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/use-cases/">Use Cases</a>
+            </li><li class="masthead__menu-item">
+              <a href="/collections/">Collections</a>
+            </li><li class="masthead__menu-item">
+              <a href="/topics/">Topics</a>
+            </li><li class="masthead__menu-item">
+            <a href="https://www.oracle.com/cloud/free/?source=:ow:o:s:nav::DevoGetStarted&intcmp=:ow:o:s:nav::DevoGetStarted">Get Started For Free</a>
+          </li>
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="https://developer.oracle.com/" itemprop="item"><span itemprop="name">Developer Resource Center</span></a>
+      <meta itemprop="position" content="" />
+    </li>
+    <span class="sep">/</span>
+    
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Dev.O Tutorials</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/collections" itemprop="item"><span itemprop="name">Collections</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/collections/tutorials" itemprop="item"><span itemprop="name">Tutorials</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Deploy Cassandra on Oracle Cloud (OCI) Linux VM</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+    <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Olivier Francois Xavier Perard</h3>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/operard" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  
+
+  <p><strong>Tags:</strong> <span class="tags">
+
+          
+          <a class="animated-link tag" href="/topics/oci">oci</a>
+          <a class="animated-link tag" href="/topics/python">python</a>
+          <a class="animated-link tag" href="/topics/jupyter">jupyter</a>
+          <a class="animated-link tag" href="/topics/backend">backend</a>
+          </span>
+  </p>
+  </div>
+
+
+  <article class="page has-sidebar has-slides" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Deploy Cassandra on Oracle Cloud (OCI) Linux VM">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Deploy Cassandra on Oracle Cloud (OCI) Linux VM
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="slides-nav"><ul><li class="active" data-target-slide="0"><a href="javascript:cool.slides.goToSlide(0)">Intro</a></li>
+<li data-target-slide="1"><a href="javascript:cool.slides.goToSlide(1)">Python setup</a></li>
+<li data-target-slide="2"><a href="javascript:cool.slides.goToSlide(2)">Jupyterlab setup</a></li>
+<li data-target-slide="3"><a href="javascript:cool.slides.goToSlide(3)">Configure Jupyterlab as an OEL7 Linux Service</a></li>
+<li data-target-slide="4"><a href="javascript:cool.slides.goToSlide(4)">Reboot Your machine for a final check</a></li></ul></nav>
+          </aside>
+        
+
+        <div class="slides" id="slideshow">
+
+  <div class="slide active" id="slide-0">
+
+    <h2 class="slide__title"><span class="slide__num">1</span> Introduction</h2>
+
+    <p>This tutorial will guide you through the steps needed to set up your environment to run Cassandra in Oracle Cloud Infrastructure.</p>
+
+    <h3 id="prerequisites">Prerequisites</h3>
+
+    <p>You should have already deployed a VM 2.1 with Oracle Linux 7.9 (OEL7) in Oracle Cloud Infrastructure (OCI).</p>
+
+    <ul>
+      <li>The installation of Oracle Linux 7.9 is using pip3.6 by default</li>
+      <li>Python 3.6 or higher is installed</li>
+      <li>You have access to root, either directly or via sudo. In OCI, the default user is “opc” and has sudo privileges</li>
+    </ul>
+
+    <p>Installing JuypterLab is fairly simple:</p>
+
+    <ol>
+      <li>Set up python</li>
+      <li>Install python components and libraries</li>
+    </ol>
+
+    <p>Lets start with setting up the Python Environment.</p>
+
+    <div class="slide__nav"><a href="javascript:cool.slides.goToSlide(1)">Begin &raquo;</a></div>
+
+  </div>
+
+  <div class="slide" id="slide-1">
+
+    <h2 class="slide__title"><span class="slide__num">2</span> Python setup</h2>
+
+    <p>By default, OEL7 runs Python 3. The first step is to install <code class="language-plaintext highlighter-rouge">pip</code> and <code class="language-plaintext highlighter-rouge">virtualenv</code>.</p>
+
+    <!-- Says install _pip_ and virtualenv but does not have instructions for pip -->
+
+    <ol>
+      <li>
+        <p>Install virtualenv</p>
+
+        <p>The next step is to install <code class="language-plaintext highlighter-rouge">virtualenv</code>. <code class="language-plaintext highlighter-rouge">virtualenv</code> enables us to create isolated sandboxes to develop Python applications without running into module or library conflicts. It’s easy to install:</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> sudo pip3.6 install virtualenv
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Create an environment and enable it</p>
+
+        <p>Create an environment called “myvirtualenv” using the following command:</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> virtualenv -p /usr/bin/python3 myvirtualenv
+</span><span class="gp"> #</span><span class="w"> </span>Activate the <span class="nb">env</span>
+<span class="go"> source myvirtualenv/bin/activate
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Check Python libraries</p>
+
+        <p>Running the following command will show what Python modules we have installed at this point:</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp"> (myvirtualenv) [opc@lab1 ~]$</span><span class="w"> </span>pip3 list
+<span class="go"> Package    Version
+ ---------- -------
+ pip        21.1.3
+ setuptools 57.1.0
+ wheel      0.36.2
+</span><span class="gp"> WARNING: You are using pip version 21.1.3;</span><span class="w"> </span>however, version 21.2.1 is available.
+<span class="go"> You should consider upgrading via the '/home/opc/myvirtualenv/bin/python -m pip install --upgrade pip' command.
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Upgrade your PIP Environment</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> /home/opc/myvirtualenv/bin/python -m pip install --upgrade pip
+</span></code></pre></div>        </div>
+      </li>
+    </ol>
+
+    <div class="slide__nav"><a href="javascript:cool.slides.goToSlide(0)">&laquo; Back</a> <a href="javascript:cool.slides.goToSlide(2)">Continue &raquo;</a></div>
+
+  </div>
+
+  <div class="slide" id="slide-2">
+
+    <h2 class="slide__title"><span class="slide__num">3</span> Jupyterlab setup</h2>
+
+    <ol>
+      <li>
+        <p>Install JupyterLab</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> pip3 install jupyterlab
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Install Python libraries for Machine Learning or ETL Process</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> pip install pandas
+ pip install pandarallel
+ pip install dask
+ pip install seaborn
+ pip install matplotlib
+ pip install plotly
+
+ pip install -lxml==4.6.3
+ pip install selenium
+ pip install beautifulsoup4
+
+ pip install scikit-learn
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Install other Python Libraries for Kafka Access and WEB Server Access</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> pip install kafka-python (v2.0.0)
+ pip install Flask
+ pip install gunicorn
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Install extensiones for Jupyterlab Environment</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> pip install jupyter_contrib_nbextensions
+ jupyter contrib nbextension install --user
+ jupyter nbextension enable execute_time/ExecuteTime
+</span></code></pre></div>        </div>
+      </li>
+    </ol>
+
+    <div class="slide__nav"><a href="javascript:cool.slides.goToSlide(1)">&laquo; Back</a> <a href="javascript:cool.slides.goToSlide(3)">Continue &raquo;</a></div>
+
+  </div>
+
+  <div class="slide" id="slide-3">
+
+    <h2 class="slide__title"><span class="slide__num">4</span> Configure Jupyterlab as an OEL7 Linux Service</h2>
+
+    <ol>
+      <li>
+        <p>Create a script to automatically instantiate and reboot JupyterLab with the “opc” user.</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> vi /home/opc/launchjupyterlab.sh
+</span></code></pre></div>        </div>
+
+        <p>Add the content below. You must use the “myvirtualenv” virtualenv environment you created previously. You can launch Jupyterlab on a specific port (for example: 8001) and listen on your public IP.</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c">#!/bin/bash</span>
+
+ <span class="c"># Activate myvirtualenv Environment</span>
+ <span class="nb">source </span>myvirtualenv/bin/activate
+
+ <span class="nb">cd</span> /home/opc
+
+ <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"start"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+     </span><span class="nb">nohup </span>jupyter-lab <span class="nt">--ip</span><span class="o">=</span>0.0.0.0 <span class="nt">--port</span><span class="o">=</span>8001 <span class="o">&gt;</span> ./nohup.log 2&gt;&amp;1 &amp;
+     <span class="nb">echo</span> <span class="nv">$!</span> <span class="o">&gt;</span> /home/opc/jupyter.pid
+ <span class="k">else
+     </span><span class="nb">kill</span> <span class="si">$(</span><span class="nb">cat</span> /home/opc/jupyter.pid<span class="si">)</span>
+ <span class="k">fi</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Make the script executable so it can be executed from the JupyterLab service.</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> chmod 777 /home/opc/launchjupyterlab.sh
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Connect to the “root” user</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> sudo -i
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Create a script to start and stop the “jupyterlab” service</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> vi /etc/systemd/system/jupyterlab.service
+</span></code></pre></div>        </div>
+
+        <p>Add the following to launch the “launchjupyterlab.sh” script as the “opc” user</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> [Unit]
+ Description=Service to start jupyterlab for opc
+ Documentation=
+ [Service]
+ User=opc
+ Group=opc
+ Type=forking
+ WorkingDirectory=/home/opc
+ ExecStart=/home/opc/launchjupyterlab.sh start
+ ExecStop=/home/opc/launchjupyterlab.sh stop
+ [Install]
+ WantedBy=multi-user.target
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Test Jupyterlab Service</p>
+
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> systemctl start jupyterlab
+ systemctl status jupyterlab
+ systemctl enable jupyterlab
+</span></code></pre></div>        </div>
+      </li>
+    </ol>
+
+    <div class="slide__nav"><a href="javascript:cool.slides.goToSlide(2)">&laquo; Back</a> <a href="javascript:cool.slides.goToSlide(4)">Continue &raquo;</a></div>
+
+  </div>
+
+  <div class="slide" id="slide-4">
+
+    <h2 class="slide__title"><span class="slide__num">5</span> Reboot Your machine for a final check</h2>
+
+    <p>Lastly, you’ll need to <strong>reboot your machine</strong> to ensure the jupyterlab script is available on port 8001.</p>
+
+    <p>Open port 8001 on your virtual machine VM 2.1 to allow access to JupyterLab using your Public IP.</p>
+
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">firewall-cmd --permanent --zone=public --list-ports
+firewall-cmd --get-active-zones
+firewall-cmd --permanent --zone=public --add-port=8001/tcp
+firewall-cmd --reload
+</span></code></pre></div>    </div>
+
+    <p>If you’re running directly on a virtual machine and have a browser installed, it should take you directly into the Jupyter environment. Connect using your public IP with the 8001 port, i.e. “http://xxx.xxx.xxx.xxx:8001/”.</p>
+
+    <p>You should now see the Python Web environment “Jupyterlab”.</p>
+
+    <div class="slide__nav"><a href="javascript:cool.slides.goToSlide(3)">&laquo; Back</a></div>
+
+  </div>
+
+</div>
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Oracle</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+<!-- Start SiteCatalyst code -->
+<script>
+  var s_pageName = "devrel:en-us:";
+  if (typeof(document.title) != "undefined") {
+    var s_pageName = s_pageName + document.title.trim()
+  };
+</script>
+<script src="https://www.oracleimg.com/us/assets/metrics/ora_otn.js"></script>
+<!-- End SiteCatalyst code -->
+
+
+  </body>
+</html>

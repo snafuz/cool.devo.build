@@ -1,0 +1,443 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Mr. Stark’s Briefcase and ProximaSafe - Oracle Dev.O Tutorials</title>
+<meta name="description" content="Cool stuff from Oracle’s Developer Relations team">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Oracle Dev.O Tutorials">
+<meta property="og:title" content="Mr. Stark’s Briefcase and ProximaSafe">
+<meta property="og:url" content="https://cool.devo.build//collections/proxima-safe/proxima-overview">
+
+
+  <meta property="og:description" content="Cool stuff from Oracle’s Developer Relations team">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-08-20T08:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://cool.devo.build//collections/proxima-safe/proxima-overview">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://cool.devo.build//"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Oracle Dev.O Tutorials Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<link rel="icon" href="https://www.oracle.com/asset/web/favicons/favicon-32.png" sizes="32x32">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead oracle-header oracle-headerv1 oracle-headeradj oracle-headerdev">
+  <div class="masthead__inner-wrap oracle-headerw1">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <div class="oracle-headers1 site-logo">
+          <a class="oracle-logo" href="https://developer.oracle.com/"><span>Oracle</span></a>
+        </div>
+        <div class="u18-title site-title">
+          <a href="/">
+            Oracle Dev.O Tutorials
+            
+          </a>
+        </div>
+
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/use-cases/">Use Cases</a>
+            </li><li class="masthead__menu-item">
+              <a href="/collections/">Collections</a>
+            </li><li class="masthead__menu-item">
+              <a href="/topics/">Topics</a>
+            </li><li class="masthead__menu-item">
+            <a href="https://www.oracle.com/cloud/free/?source=:ow:o:s:nav::DevoGetStarted&intcmp=:ow:o:s:nav::DevoGetStarted">Get Started For Free</a>
+          </li>
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="https://developer.oracle.com/" itemprop="item"><span itemprop="name">Developer Resource Center</span></a>
+      <meta itemprop="position" content="" />
+    </li>
+    <span class="sep">/</span>
+    
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Dev.O Tutorials</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/collections" itemprop="item"><span itemprop="name">Collections</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/collections/proxima-safe" itemprop="item"><span itemprop="name">Proxima safe</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Mr. Stark's Briefcase and ProximaSafe</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+
+    <div class="sidebar sticky">
+  
+  
+    
+      
+      <ul>
+        
+        <li><a href="https://developer.oracle.com/proximasafe-intro/">Proxima Safe Part 1</a></li>
+        
+        <li><a href="https://developer.oracle.com/proximasafe-part-2/">Proxima Safe Part 2</a></li>
+        
+        <li><a href="https://developer.oracle.com/proximasafe-part-3/">Proxima Safe Part 3</a></li>
+        
+      </ul>
+      
+      
+      
+      
+      
+    
+    
+  
+  
+  
+
+  <p><strong>Tags:</strong> <span class="tags">
+
+          
+          <a class="animated-link tag" href="/topics/oci">oci</a>
+          <a class="animated-link tag" href="/topics/iot">iot</a>
+          <a class="animated-link tag" href="/topics/streaming">streaming</a>
+          <a class="animated-link tag" href="/topics/serverless">serverless</a>
+          <a class="animated-link tag" href="/topics/rpi">rpi</a>
+          <a class="animated-link tag" href="/topics/fullstack">fullstack</a>
+          </span>
+  </p>
+  </div>
+
+
+  <article class="page has-sidebar" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Mr. Stark’s Briefcase and ProximaSafe">
+    
+    <meta itemprop="datePublished" content="2021-08-20T08:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Mr. Stark’s Briefcase and ProximaSafe
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+
+        <h2 id="the-briefcase-dream">The Briefcase Dream</h2>
+
+<p>I’ve always been a fan of Marvel superheroes comics, long before the successful movie franchise known as MCU. Actually, around 1972–1975, I could find several Marvel comics carefully translated and lettered in my native language by visiting my friendly (actually, he wasn’t) news vendor, strategically placed in the market street corner few hundred yards from where I lived.</p>
+
+<p>The hard limit — at the time — was the number of physical coins I was allowed to spend within a month without incurring into Mum’s inevitable semi-verbal reproach.</p>
+
+<p>Few years later, my tastes and interests turned to the Golden Age Sci-Fi (Asimov and all of the Futurians, Heinlein, Bradbury ). The news vendor corner was always there, my monthly allowance was a tad more generous and I could smuggle sci-fi books in my school bag without arousing suspicion. With a notable exception: pooled with the books, a comic, the Iron Man episode where the iconic Mr. Stark briefcase was introduced to my ‘magnets and miracles’ world.</p>
+
+<p><img src="assets/marvel.png" alt="I think I should write something like © Marvel Comics — All right reserved" /></p>
+
+<p>I wish I had that briefcase available in a number of situations, getting a bad grade or running into the inevitable school bully: my curiosity about the relationship between miniaturization and technology remains a fixed point even today.</p>
+
+<p>Then, decades later, the briefcase idea surfaced again while having fun with an iteration of the Oracle’s <a href="https://www.youtube.com/watch?v=aJUSEEagm8Q">Proxima City</a> model made by the Italian Innovation Team, a whimsical (as it’s been called) construction made with Legos, Arduinos, sensors and Oracle Cloud Infrastructure services.</p>
+
+<p>During the 2020 lockdown we had no access to the city model, installed in the Customer Visit Center in Rome. I was struggling to find a way to show a functioning demo either via Zoom or bringing some artifacts into customer premises (no Star Trek transporter available, so far), and urged to prepare something smaller than a city model but powerful enough to show the concept.</p>
+
+<p>“I should definitely do it” was my inner morning echo while sipping my favorite daily americano brew. Changing the model to be portable also meant changing the use cases perimeter: the year 2020 required — for obvious reasons — a rapid transition from Smart City services to an extended and appropriate Safe City scenario.</p>
+
+<p><img src="assets/bread.jpeg" alt="The playground" /></p>
+
+<p>Requirements were clear: small enough to fit in my backpack, programmable, made with off-the-shelf components, easily connectable to OCI services, and capable to show the end-to-end message flow by means of physical interaction. The stretch goal was to enable teachers, students, developer and tinkerers to improve this ‘portable lab’ and develop new use cases oriented to safety, exploring and expanding the needed back-end cloud services.</p>
+
+<h2 id="from-briefcase-to-cloud-and-back">From Briefcase to Cloud, and Back</h2>
+
+<p>Here’s the link (Note: insert link) to the article series about what I call <strong>ProximaSafe</strong>, showing how to build some Cloud and Edge capabilities to make a testbed for safety-related applications (included, but not limited to) using a number of technologies and tools, such as:</p>
+
+<ul>
+  <li><strong>Oracle Golden Gate Streaming Analytics</strong>, to analyze data in motion and detect anomalies and/or errors</li>
+  <li><strong>OCI Streaming</strong>, the messaging backbone</li>
+  <li><strong>OCI Functions</strong>, the serverless infrastructure used to enable the upstream messages to Edge</li>
+  <li>the <strong>M5Stack</strong> family of development boards, acting as Edge Components enabled to publish and subscribe to IoT topics</li>
+  <li>a <strong>Raspberry Pi 4</strong>, the inevitable Edge gateway taking care of communication between sensors &amp; boards to Cloud — and viceversa</li>
+  <li>a suitable battery pack to power the whole stuff.</li>
+</ul>
+
+<p><img src="assets/case.jpeg" alt="The bag of goodies" /></p>
+
+<p>The overall architecture designed for this mobile lab includes the representation of the edge (the boards inside the briefcase) and the communication flow edge -&gt; OCI -&gt; edge with return messages containing anomaly detections and alarms.</p>
+
+<p><img src="assets/wire.png" alt="" /></p>
+
+<p>So, given a number of messages that can be recognized as an uptrend/downtrend pattern or a number of messages within a time frame (maybe few seconds), the stream analysis within OCI may (or may not) throw an alarm, sent back to the edge to make something happen.</p>
+
+<p><img src="assets/gates.jpeg" alt="Something has definitely happened" /></p>
+
+<p>Here’s a short YouTube video: https://youtu.be/dw_odrtwAUk.</p>
+
+<p><strong>Three chapters, a common goal</strong></p>
+
+<p>I’ve divided the whole path in chapters that will be published every fortnight or something, trying to avoid the ‘War and Peace’ syndrome (I’m not sure I achieved that). Here’s the breakdown of the articles:</p>
+
+<ul>
+  <li>In <strong>chapter 1</strong>, we’ll set up OCI resources to implement an even-driven engine, capable of analyzing the stream of events (and data) from the edge</li>
+  <li>In <strong>chapter 2</strong>, we’ll set up the feedback mechanism to return alarms to the edge in order to make something happen locally
+In the <strong>final chapter</strong> (three is the magic number), we’ll select and program the edge components (thingies in our briefcase) and we’ll design some pipelines in the cloud corresponding to a number of use cases.</li>
+</ul>
+
+<p>It was fun to build it. The boy I used to be would be proud of it.</p>
+
+<p>The briefcase needs more engineering. I became no Tony, no superpowers, no millionaire, and — overall — my once dark goatee has become white (alas!), so the distant reflection of that boy slipping comics and books in the backpack while wondering about future technology maybe it’s gone forever. My morning back pain reminds me that, indeed, it is.</p>
+
+<p>Well, here’s the <a href="https://developer.oracle.com/proximasafe-intro/">link to the first chapter</a>, for it is time to think about the next thing to write.</p>
+
+<p>I still daydream about that magical briefcase, though.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-08-20T08:00:00+00:00">August 20, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Oracle</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+<!-- Start SiteCatalyst code -->
+<script>
+  var s_pageName = "devrel:en-us:";
+  if (typeof(document.title) != "undefined") {
+    var s_pageName = s_pageName + document.title.trim()
+  };
+</script>
+<script src="https://www.oracleimg.com/us/assets/metrics/ora_otn.js"></script>
+<!-- End SiteCatalyst code -->
+
+
+  </body>
+</html>
